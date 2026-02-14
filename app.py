@@ -1,21 +1,28 @@
 import streamlit as st
-from modules.ai import AIService
-from modules.css import inject_custom_css
-from modules.ui import render_sidebar, render_chat_history
-from modules.tools import generate_chat_title, count_tokens, calculate_cost
-from modules.docs import process_uploaded_file
-
-if "ai_service" not in st.session_state:
-    st.session_state.ai_service = AIService()
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+import os
 
 st.set_page_config(
     page_title="OmniChat Pro",
     page_icon="🤖",
     layout="wide",
 )
+
+from modules.ai import AIService
+from modules.css import inject_custom_css
+from modules.ui import render_sidebar, render_chat_history
+from modules.tools import generate_chat_title, count_tokens, calculate_cost
+from modules.docs import process_uploaded_file
+
+if not os.getenv("OPENAI_API_KEY"):
+    st.warning(
+        "⚠️ OpenAI API Key not found. Please set it in your .env file or Streamlit Secrets."
+    )
+    st.stop()
+if "ai_service" not in st.session_state:
+    st.session_state.ai_service = AIService()
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
 inject_custom_css()
 
