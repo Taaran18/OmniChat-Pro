@@ -69,5 +69,3 @@ streamlit run app.py
 
 ---
 *Developed with a focus on aesthetics, modularity, and high-performance AI integration.*
-# OmniChat-Pro
-# OmniChat-Pro
